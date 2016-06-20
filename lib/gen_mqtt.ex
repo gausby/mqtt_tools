@@ -32,8 +32,8 @@ defmodule GenMQTT do
 
   ## Callbacks
 
-  GenMQTT defines 12 callbacks, all of them are automatically defined
-  when you use GenMQTT in your module, letting you define the callbacks
+  `GenMQTT` defines 12 callbacks, all of them are automatically defined
+  when you `use GenMQTT` in your module, letting you define the callbacks
   you want to customize.
 
   Six of the callbacks are similar to the ones you know from
@@ -41,7 +41,7 @@ defmodule GenMQTT do
   They are: `init/1`, `handle_call/3`, `handle_cast/2`, `handle_info/2`,
   `terminate/2`, and `code_change/3`.
 
-  The remaining six are specific to GenMQTT and deal with various
+  The remaining six are specific to `GenMQTT` and deal with various
   events in a MQTT life cycle:
 
     * `on_connect/1` is run when the client connects or reconnects with
@@ -67,7 +67,8 @@ defmodule GenMQTT do
 
   ## Name Registration
 
-  A `GenMQTT` is bound to the same [Name Registration](http://elixir-lang.org/docs/stable/elixir/GenServer.html)
+  A `GenMQTT` is bound to the same
+  [Name Registration](http://elixir-lang.org/docs/stable/elixir/GenServer.html)
   rules as GenServers.
   """
 
