@@ -1,10 +1,11 @@
 defmodule GenMQTT do
   @moduledoc ~S"""
-  A behaviour module for implementing MMQT client processes.
+  A behaviour module for implementing MQTT client processes.
 
   ## Example
 
-  This example assumes an MQTT server running on localhost on port 1883.
+  The following example subscribes to a topic and responds by printing
+  messages.
 
       defmodule TemperatureLogger do
         use GenMQTT
@@ -25,16 +26,20 @@ defmodule GenMQTT do
       end
 
   This will log to the console every time a sensor posts a temperature
-  to the broker.
+  to the `room/<location/temp` topic.
+
+  It assumes there is an MQTT server running on localhost on port 1883.
 
   ## Callbacks
 
   GenMQTT defines 12 callbacks, all of them are automatically defined
   when you use GenMQTT in your module, letting you define the callbacks
-  you want to customize. Six of the callbacks are similar to the ones
-  you know from GenServer, and the GenServer documentation should be
-  consulted for info on these. They are: `init/1`, `handle_call/3`,
-  `handle_cast/2`, `handle_info/2`, `terminate/2`, and `code_change/3`.
+  you want to customize.
+
+  Six of the callbacks are similar to the ones you know from
+  [GenServer](http://elixir-lang.org/docs/stable/elixir/GenServer.html).
+  They are: `init/1`, `handle_call/3`, `handle_cast/2`, `handle_info/2`,
+  `terminate/2`, and `code_change/3`.
 
   The remaining six are specific to GenMQTT and deal with various
   events in a MQTT life cycle:
@@ -62,8 +67,8 @@ defmodule GenMQTT do
 
   ## Name Registration
 
-  A GenMQTT is bound to the same name registration rules as GenServers.
-  Read more about it in the Elixir `GenServer` docs.
+  A `GenMQTT` is bound to the same [Name Registration](http://elixir-lang.org/docs/stable/elixir/GenServer.html)
+  rules as GenServers.
   """
 
   # gen_server ---------------------------------------------------------

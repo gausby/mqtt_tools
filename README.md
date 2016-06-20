@@ -23,6 +23,37 @@ Add the following to `mix.exs`:
 
 **Note** you need to fetch the `:vmq_commons` package from GitHub for this module to work for now. `vmq_commons` should be hopefully added to Hex soon, so this step can be omitted.
 
+
+## Example
+
+The following example subscribes to a topic and responds by printing
+messages.
+
+    defmodule TemperatureLogger do
+      use GenMQTT
+
+      def start_link do
+        GenMQTT.start_link(__MODULE__, nil)
+      end
+
+      def on_connect(state) do
+        :ok = GenMQTT.subscribe(self, "room/+/temp", 0)
+        {:ok, state}
+      end
+
+      def on_publish(["room", location, "temp"], message, state) do
+        IO.puts "It is #{message} degrees in #{location}"
+        {:ok, state}
+      end
+    end
+
+This will log to the console every time a sensor posts a temperature
+to the `room/<location/temp` topic.
+
+It assumes an MQTT server running on localhost on port 1883.
+
+## Versioning
+
 Also notice, this project should follow [Semantic Versioning 2.0.0](http://semver.org), so you should be safe if you fix the version number to a specific major or minor version. The project might change, if something can be done smarter or if the underlying `:gen_emqtt` implementation changes radically.
 
 
