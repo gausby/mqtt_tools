@@ -343,7 +343,7 @@ defmodule GenMQTT do
 
     * `:name` the name given to the process.
 
-    * `:host` the host name or ip address of the MQTT broker.
+    * `:host` the host name or IP address of the MQTT broker.
 
     * `:port` the port number the MQTT broker is running on given as
       an integer. This will default to `1883`.
@@ -357,13 +357,11 @@ defmodule GenMQTT do
 
     * `:client` the client ID. A randomly generated client ID will be
       used if this is option is not supplied. Notice that all
-      connected clients should have a unique client id. Should you
+      connected clients should have a unique client ID. Should you
       choose to generate your own client ID it should be no longer
       than 23 characters, unless the broker supports longer client
-      ids. The requirements for a client id is described in the MQTT
-      specifications:
-
-        - http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242
+      IDs. The requirements for a client ID are described in the
+      [MQTT specifications](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242).
 
     * `:clean_session` boolean value, defaults to `true`.
 
@@ -450,7 +448,7 @@ defmodule GenMQTT do
   # http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242
   #
   # Notice that we will not attempt any validation on the length of
-  # user generated client ids because some MQTT servers may allow for
+  # user generated client IDs because some MQTT servers may allow for
   # longer names.
   defp generate_client_id(opts) do
     case opts[:client] do
