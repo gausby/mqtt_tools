@@ -1,10 +1,11 @@
 defmodule GenMQTT do
   @moduledoc ~S"""
-  A behaviour module for implementing MMQT client processes.
+  A behaviour module for implementing MQTT client processes.
 
   ## Example
 
-  This example assumes an MQTT server running on localhost on port 1883.
+  The following example subscribes to a topic and responds by printing
+  messages.
 
       defmodule TemperatureLogger do
         use GenMQTT
@@ -25,18 +26,22 @@ defmodule GenMQTT do
       end
 
   This will log to the console every time a sensor posts a temperature
-  to the broker.
+  to the `room/<location/temp` topic.
+
+  It assumes there is an MQTT server running on localhost on port 1883.
 
   ## Callbacks
 
-  GenMQTT defines 12 callbacks, all of them are automatically defined
-  when you use GenMQTT in your module, letting you define the callbacks
-  you want to customize. Six of the callbacks are similar to the ones
-  you know from GenServer, and the GenServer documentation should be
-  consulted for info on these. They are: `init/1`, `handle_call/3`,
-  `handle_cast/2`, `handle_info/2`, `terminate/2`, and `code_change/3`.
+  `GenMQTT` defines 12 callbacks, all of them are automatically defined
+  when you `use GenMQTT` in your module, letting you define the callbacks
+  you want to customize.
 
-  The remaining six are specific to GenMQTT and deal with various
+  Six of the callbacks are similar to the ones you know from
+  [GenServer](http://elixir-lang.org/docs/stable/elixir/GenServer.html).
+  They are: `init/1`, `handle_call/3`, `handle_cast/2`, `handle_info/2`,
+  `terminate/2`, and `code_change/3`.
+
+  The remaining six are specific to `GenMQTT` and deal with various
   events in a MQTT life cycle:
 
     * `on_connect/1` is run when the client connects or reconnects with
@@ -62,8 +67,9 @@ defmodule GenMQTT do
 
   ## Name Registration
 
-  A GenMQTT is bound to the same name registration rules as GenServers.
-  Read more about it in the Elixir `GenServer` docs.
+  A `GenMQTT` is bound to the same
+  [Name Registration](http://elixir-lang.org/docs/stable/elixir/GenServer.html)
+  rules as GenServers.
   """
 
   # gen_server ---------------------------------------------------------
@@ -337,7 +343,7 @@ defmodule GenMQTT do
 
     * `:name` the name given to the process.
 
-    * `:host` the host name or ip address of the MQTT broker.
+    * `:host` the host name or IP address of the MQTT broker.
 
     * `:port` the port number the MQTT broker is running on given as
       an integer. This will default to `1883`.
@@ -351,13 +357,11 @@ defmodule GenMQTT do
 
     * `:client` the client ID. A randomly generated client ID will be
       used if this is option is not supplied. Notice that all
-      connected clients should have a unique client id. Should you
+      connected clients should have a unique client ID. Should you
       choose to generate your own client ID it should be no longer
       than 23 characters, unless the broker supports longer client
-      ids. The requirements for a client id is described in the MQTT
-      specifications:
-
-        - http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242
+      IDs. The requirements for a client ID are described in the
+      [MQTT specifications](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242).
 
     * `:clean_session` boolean value, defaults to `true`.
 
@@ -444,7 +448,7 @@ defmodule GenMQTT do
   # http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc385349242
   #
   # Notice that we will not attempt any validation on the length of
-  # user generated client ids because some MQTT servers may allow for
+  # user generated client IDs because some MQTT servers may allow for
   # longer names.
   defp generate_client_id(opts) do
     case opts[:client] do
