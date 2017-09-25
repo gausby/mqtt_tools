@@ -196,7 +196,7 @@ defmodule GenMQTT do
 
   defmacro __using__(_) do
     quote location: :keep do
-      @behaviour :gen_emqtt
+      @behaviour GenMQTT
 
       @doc false
       def init(state) do
